@@ -39,7 +39,7 @@ class Tree extends backgroundObject {
 class Rock extends backgroundObject {
 	constructor() {
 		super(backgroundObject);
-		this.y = 400
+		this.y = 450
 		this.width = 10;
 		this.ratio = 1;
 
@@ -65,7 +65,7 @@ class Rock extends backgroundObject {
 class Grass extends backgroundObject {
 	constructor() {
 		super(backgroundObject);
-		this.y = 400
+		this.y = 450
 
 		this.width = 10;
 		this.ratio = 1;
@@ -121,6 +121,35 @@ class Foliage {
 		    }
 		}
 	}
+
+}
+
+class updateText {
+
+	constructor() {
+		this.textList = ["Hiya Roo,", "Happy Holidays!!"]
+
+		this.currentSentance = 0;
+		this.sentanceInterval = 50;
+		this.currentInterval = 0;
+	}
+
+	displayASentance(sentance) {
+
+	}
+
+	display() {
+
+		displayASentance(textList);
+
+		this.currentInterval += 1;
+		if (this.currentInterval > this.sentanceInterval) {
+			currentSentance += 1;
+		}
+	}
+
+
+
 
 }
 // =================== Helpers ===================
