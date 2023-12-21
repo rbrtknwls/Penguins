@@ -1,14 +1,3 @@
-Scenes.wipe = function(x) {
-	ctx.beginPath();
-	ctx.rect(0, 0, 20, 10);
-	ctx.fillStyle = "#edf0f7";
-	ctx.fill();
-	ctx.closePath();
-
-
-	currentScene = requestAnimationFrame(x => Scenes.wipe(x));
-}
-
 Scenes.start = function(currentIteration) {
 	return new Promise(function (resolve, reject) {
 		ctx.beginPath();
@@ -22,7 +11,7 @@ Scenes.start = function(currentIteration) {
 
 				clearInterval(intervalId);
 
-				resolve("Stuff worked!");
+				resolve();
 
 			} else {
 
@@ -43,7 +32,7 @@ Scenes.start = function(currentIteration) {
 				ctx.fill();
 				ctx.closePath();
 			}
-		}, 3000);
+		}, 100);
   	});
 
 }
