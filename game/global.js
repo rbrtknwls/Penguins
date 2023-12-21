@@ -9,3 +9,8 @@ const rockSrc = document.createElement("img");
 rockSrc.src = "source/pixel_art/rock.png"
 const grassSrc = document.createElement("img");
 grassSrc.src = "source/pixel_art/grass.png"
+
+const mountR = document.createElement("img");
+mountR.src = "source/pixel_art/rightmountain.png"
+const mountL = document.createElement("img");
+mountL.src = "source/pixel_art/leftmountain.png"
