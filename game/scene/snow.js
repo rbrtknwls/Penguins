@@ -4,8 +4,8 @@ class backgroundObject {
 	constructor() {
 		this.y = 350;
 		this.x = canvas.width/2;
-		this.vel = 1;
-		this.acc = 0.1;
+		this.vel = 0.20;
+		this.acc = 0.04;
 	}
 
 }
@@ -124,27 +124,59 @@ class Foliage {
 
 }
 
-class updateText {
+class Text {
 
 	constructor() {
-		this.textList = ["Hiya Roo,", "Happy Holidays!!"]
+		this.textList = introText;
 
 		this.currentSentance = 0;
 		this.sentanceInterval = 50;
 		this.currentInterval = 0;
+
+		this.wordsPerSentance = 24;
+		this.sentances = []
+
+		this.calculateNewSentances(this.textList[0])
 	}
 
-	displayASentance(sentance) {
+	calculateNewSentances(text) {
+		var textSplit = text.split(" ")
 
+		var currentSentance = ""
+		var currentWordCount = 0;
+		for (var i = 0; i < textSplit.length; i++) {
+			currentWordCount += textSplit[i].length;
+
+			if (currentWordCount > this.wordsPerSentance) {
+				this.sentances.push(currentSentance);
+				currentSentance = textSplit[i];
+				currentWordCount = textSplit[i].length;
+			} else {
+				if (currentSentance.length != 0) {
+					currentSentance += " ";
+				}
+				currentSentance += textSplit[i];
+			}
+		}
+		if (currentSentance.length > 0) { this.sentances.push(currentSentance); }
+	}
+
+	displayASentance(text) {
+		console.log(this.sentances)
+		
+		ctx.font = "60px serif";
+		ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+		ctx.fillText(this.sentances, canvas.width/2, canvas.height/2);
 	}
 
 	display() {
 
-		displayASentance(textList);
+		this.displayASentance(this.textList[0]);
 
 		this.currentInterval += 1;
 		if (this.currentInterval > this.sentanceInterval) {
-			currentSentance += 1;
+			this.currentSentance += 1;
+			this.currentInterval = 0;
 		}
 	}
 
@@ -205,11 +237,13 @@ Scenes.snow = function(currentIteration) {
 	return new Promise(function (resolve, reject) {
 
 		const background = new Foliage;
+		const text = new Text;
+
 		background.addTree();
 
 		var intervalId = setInterval(function() {
 			ctx.clearRect(0, 0, canvas.width, canvas.height)
-			if (Math.random() < 0.25) { background.addTree(); }
+			if (Math.random() < 0.1) { background.addTree(); }
 
 			else {
 				if (Math.random() < 0.01) {
@@ -222,6 +256,7 @@ Scenes.snow = function(currentIteration) {
 			drawGround();
 
 			background.draw();
+			text.display();
 
 		}, 25);
   	});
