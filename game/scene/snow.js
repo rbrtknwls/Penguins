@@ -130,20 +130,25 @@ class Text {
 		this.textList = introText;
 
 		this.currentSentance = 0;
-		this.sentanceInterval = 50;
+		this.sentanceInterval = 300;
 		this.currentInterval = 0;
+		this.transitionInterval = 100;
 
+
+		this.widthOfText = 0;
+		this.heightOfText = 0;
 		this.wordsPerSentance = 24;
-		this.sentances = []
 
 		this.calculateNewSentances(this.textList[0])
 	}
 
 	calculateNewSentances(text) {
+		this.sentances = []
 		var textSplit = text.split(" ")
 
 		var currentSentance = ""
 		var currentWordCount = 0;
+		var maxWordSize = 0;
 		for (var i = 0; i < textSplit.length; i++) {
 			currentWordCount += textSplit[i].length;
 
@@ -157,30 +162,61 @@ class Text {
 				}
 				currentSentance += textSplit[i];
 			}
+
+			if (maxWordSize < currentWordCount) { maxWordSize = currentWordCount; }
 		}
 		if (currentSentance.length > 0) { this.sentances.push(currentSentance); }
+
+		this.widthOfText = maxWordSize * 42;
+		this.heightOfText = 95 * this.sentances.length;
 	}
 
-	displayASentance(text) {
-		console.log(this.sentances)
-		
-		ctx.font = "60px serif";
-		ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
-		ctx.fillText(this.sentances, canvas.width/2, canvas.height/2);
+	displayASentance(colour) {
+		ctx.font = "80px serif";
+		ctx.beginPath();
+		ctx.fillStyle = "rgba(0, 0, 0, " + colour/2 + ")";
+		ctx.rect(canvas.width/2-this.widthOfText/2, canvas.height/2-this.heightOfText/1.5, this.widthOfText, this.heightOfText);
+		ctx.fill();
+
+		ctx.beginPath();
+		ctx.fillStyle = "rgba(255, 255, 255, " + colour + ")";
+
+		if (this.sentances.length == 1) {
+			ctx.fillText(this.sentances[0], canvas.width/2, canvas.height/2);
+		}
+		if (this.sentances.length == 2) {
+			ctx.fillText(this.sentances[0], canvas.width/2, canvas.height/2 - 50);
+			ctx.fillText(this.sentances[1], canvas.width/2, canvas.height/2 + 30);
+		}
+		if (this.sentances.length == 3) {
+			ctx.fillText(this.sentances[0], canvas.width/2, canvas.height/2 - 100);
+			ctx.fillText(this.sentances[1], canvas.width/2, canvas.height/2 - 20);
+			ctx.fillText(this.sentances[2], canvas.width/2, canvas.height/2 + 60);
+		}
 	}
 
 	display() {
+		if (this.sentances.length == 0) { return "Done" }
 
-		this.displayASentance(this.textList[0]);
+		var transitionColour = 1;
+
+		if (this.currentInterval < this.transitionInterval) {
+			transitionColour = this.currentInterval / this.transitionInterval;
+		}
+		if (this.currentInterval > this.sentanceInterval) {
+			transitionColour = 1 - (this.currentInterval-this.sentanceInterval) / this.transitionInterval;
+		}
+
+		this.displayASentance(transitionColour);
 
 		this.currentInterval += 1;
-		if (this.currentInterval > this.sentanceInterval) {
+		if (this.currentInterval > (this.sentanceInterval + this.transitionInterval)) {
+
 			this.currentSentance += 1;
 			this.currentInterval = 0;
+			this.calculateNewSentances(this.textList[this.currentSentance])
 		}
 	}
-
-
 
 
 }
@@ -192,7 +228,6 @@ gradient.addColorStop(0, "#371585");
 gradient.addColorStop(1, "#beb2db");
 
 function drawSkyline() {
-
 	ctx.beginPath();
 	ctx.fillStyle = "#371585"
 	ctx.rect(0, 0, canvas.width, canvas.height);
@@ -215,15 +250,12 @@ function drawSkyline() {
 	ctx.drawImage(mountL, canvas.width/2 + 250, 0)
 	ctx.drawImage(mountL, canvas.width/2, 25)
 	ctx.drawImage(mountL, canvas.width/2+500, 0)
-
-
 }
 
 
 function drawGround() {
-
-	ctx.fillStyle = "#fffafa";
 	ctx.beginPath();
+	ctx.fillStyle = "#fffafa";
     ctx.moveTo(canvas.width/2, 400);
     ctx.lineTo(-200, canvas.height);
     ctx.lineTo(canvas.width+200, canvas.height);
@@ -234,6 +266,7 @@ function drawGround() {
 
 
 Scenes.snow = function(currentIteration) {
+
 	return new Promise(function (resolve, reject) {
 
 		const background = new Foliage;
@@ -256,8 +289,12 @@ Scenes.snow = function(currentIteration) {
 			drawGround();
 
 			background.draw();
-			text.display();
+			isDone = text.display();
 
+			if (isDone == "Done") {
+				clearInterval(intervalId);
+				resolve();
+			}
 		}, 25);
   	});
 

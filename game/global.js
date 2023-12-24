@@ -17,7 +17,7 @@ mountL.src = "source/pixel_art/leftmountain.png"
 
 
 
-const introText = ["Hiya Roo, Happy Holidays!", 
-	               "I thought since the year is almost over...", 
-	               "We could look back at some of my favourite memories...", 
+const introText = ["Hiya Roo, Happy Holidays!!", 
+	               "It's crazy to think that it has almost been a year since I met you...", 
+	               "In that short span of time, I have made so many happy memories with you...", 
 	               "(I apologise ahead of time for my pixel art skills)"]
