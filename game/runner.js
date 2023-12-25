@@ -2,7 +2,8 @@ window.onload = function() {
 
     Scenes.start(3)
         .then(function(x) {
-            Scenes.snow()
+            Scenes.skate()
+            //Scenes.snow()
         })
 
     
