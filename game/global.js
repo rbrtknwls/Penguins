@@ -53,3 +53,21 @@ const skateText = ["Roo,|There’s no memory I could ever cherish as much as ska
 	               "Man… how are you so cool.",
 	               "After being jump scared by a baby...|We got some poutine and headed to the office.|Overlooking the city, we talked about colour printers and CMYK printing.|You just have an ability to make any conversation so interesting.",
 	               "On the train back I really wanted to be suave…|So, after picking out your favourite type of chocolate I offered it to you.|As payment of course for teaching me how to skate!"]
+
+// ================= SCENE #3 ==================
+
+const Roo4 = document.createElement("img");
+const Roo5 = document.createElement("img");
+const Roo6 = document.createElement("img");
+
+Roo4.src = "source/pixel_art/roo4.png"
+Roo5.src = "source/pixel_art/roo5.png"
+Roo6.src = "source/pixel_art/roo6.png"
+
+const Tigger4 = document.createElement("img");
+const Tigger5 = document.createElement("img");
+const Tigger6 = document.createElement("img");
+
+Tigger4.src = "source/pixel_art/tigger4.png"
+Tigger5.src = "source/pixel_art/tigger5.png"
+Tigger6.src = "source/pixel_art/tigger6.png"
