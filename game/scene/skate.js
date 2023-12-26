@@ -94,18 +94,54 @@ class MeAndYouSkating {
 
 class skatingText {
 	constructor() {
-		this.textArr = []
+		this.textArr = skateText;
 		this.currentText = 0;
 
-		this.updateInterval = 4;
-		this.amountOfText = [];
+		this.currentInterval = 0;
+		this.updateInterval = 3;
+
+		this.currentLine = 0
+		this.textToDisplay = [];
+		this.textStartX = 80;
+		this.textStartY = 680;
 	}
 
 	updateText() {
+
 		ctx.beginPath();
     	ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
 		ctx.rect(50, canvas.height/2+100, canvas.width-100, canvas.height/2-150);
 		ctx.fill();
+
+		ctx.font = "60px serif";
+		ctx.textAlign = "left";
+
+		ctx.beginPath();
+    	ctx.fillStyle = "#fffafa";
+		for (var idx = 0; idx < this.textToDisplay.length; idx++) {
+			ctx.fillText(this.textToDisplay[idx], this.textStartX, this.textStartY+idx*65)
+		}
+
+		if (this.currentInterval > this.updateInterval) {
+			if (this.currentText >= this.textArr.length) {
+					return "Done";
+				}
+
+			if (this.currentLine >= this.textArr[this.currentText].split("|").length) {
+				this.textToDisplay = [];
+				this.currentLine = 0;
+				this.currentText += 1;
+			} else {
+				
+				this.textToDisplay.push(this.textArr[this.currentText].split("|")[this.currentLine])
+				this.currentLine += 1;
+				this.currentInterval = 0;
+			}
+		}
+		this.currentInterval += 1;
+
+
+
 	}
 }
 
@@ -121,7 +157,12 @@ Scenes.skate = function(currentIteration) {
 
 		var intervalId1 = setInterval(function() {
 			us.draw();
-			text.updateText();
+			isDone = text.updateText();
+			
+			if (isDone == "Done") {
+				clearInterval(intervalId1);
+				resolve();
+			}
 		}, 1000);
 
 
