@@ -1,20 +1,41 @@
 // =================== Object Classes ===================
 
+
+
 class MeAndYouGaming {
 
 	constructor( type ) {
         this.currentUs = 0;
         this.maxUs = 10;
+
+        this.gradx = canvas.width/2-10;
+        this.grady = 300;
+
+        this.innerRadius = 200;
+        this.outerRadius = 1500;
+
+        this.gradientList = []
+
+        for (var idx = 0; idx < this.maxUs; idx++){
+        	var grad = ctx.createRadialGradient(this.gradx, this.grady, this.innerRadius, this.gradx, this.grady, this.outerRadius);
+        	grad.addColorStop(0, "rgba("+Math.floor(Math.random()*255)+","+Math.floor(Math.random()*255)+","+Math.floor(Math.random()*255)+",0.25)");
+        	grad.addColorStop(0.2, "#48484a");
+        	grad.addColorStop(0.4, "#282829");
+        	this.gradientList.push(grad);
+        }
     }
 
     drawBackground() {
 
-    	ctx.beginPath();
-    	ctx.fillStyle = "#282829";
-		ctx.rect(0, 0, canvas.width, canvas.height);
-		ctx.fill();
+    	this.currentUs = (this.currentUs + 1)%10
 
 		ctx.drawImage(computer, canvas.width/2-300, 100, 600, 600);
+
+		ctx.beginPath();
+	    ctx.fillStyle = this.gradientList[this.currentUs];
+	    ctx.arc(this.gradx, this.grady, this.outerRadius, 0, 2 * Math.PI);
+	    ctx.fill();
+
     	ctx.drawImage(tiggerBack, canvas.width/2-450,250, 900, 900)
 
     }
