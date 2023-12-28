@@ -101,3 +101,16 @@ const tiggerBack = document.createElement("img");
 
 computer.src = "source/pixel_art/computer.png"
 tiggerBack.src = "source/pixel_art/tiggerBack.png"
+
+const gamingText = ["Now while I love our texting conversations,|nothing compares to how fun it is to play video games with you!",
+					"Theres an adage that friends make anything better,|but with you it is sooooo much more then just that.",
+					"In DC there was a lot that was exciting:|new job, new friends, new place. For the first couple weeks it was really fun.|However overtime I kind of realised that I really missed Toronto.|(It didn’t help that my job suckedddd)",
+					"I’m not someone who often talks about how their feeling and so|I kind of closed myself off to my friends and just went through the cycles.|And yet, I always looked forward to playing games with you.|I was able to decompress and feel better without saying anything.",
+					"No matter what kind of week I had, I always looked forward to|Catching up with you and playing some Stardew valley.|(Even if I ended up dying a bazillion times in the mine (I blame Alex))",
+					"In fact, talking with you was often the highlight of my week. I have so many|fond memories of hurrying back home after work and picking up some pop|Before one of our gaming marathons.",
+					"Even after being severally sun burnt and bed / bath ridden,|Playing games with you was able to distract me from all the pain!|Its crazy it was way more effective then like 10 Advils.",
+					"Now I may be jumping around in the lore a little, but I don’t think I have|Ever had more fun over videogames then playing Project Zomboid with you.",
+					"I love it when its super late, and its just us.|Surrounded by bubble tea and other uber eats dishes…|It being pitch black outside and its like we have our own little world inside.|Playing until we are too tired and then falling asleep together.",
+					"I really like the person I am when im with you!|You motivative me to be a better person (and gamer ofc)",
+					"Like this term was super hard…|But whenever I was pulling an all nighter studying or trying to stay awake.|I thought about playing games with you and it motivated me to work harder.",
+					"Sometimes when we would talk till like 4am, I would feel tired the next day.|But I would never ever regret it! As for the whole day I would have a smile,|Thinking of you and all the stuff we talked about."]

@@ -17,7 +17,7 @@ class MeAndYouGaming {
         this.gradientList = []
 
         for (var idx = 0; idx < this.maxUs; idx++){
-        	var grad = ctx.createRadialGradient(this.gradx, this.grady, this.innerRadius, this.gradx, this.grady, this.outerRadius);
+        	var grad = ctx.createRadialGradient(this.gradx, this.grady, this.innerRadius+Math.floor(Math.random()*100), this.gradx, this.grady, this.outerRadius+Math.floor(Math.random()*300));
         	grad.addColorStop(0, "rgba("+Math.floor(Math.random()*255)+","+Math.floor(Math.random()*255)+","+Math.floor(Math.random()*255)+",0.25)");
         	grad.addColorStop(0.2, "#48484a");
         	grad.addColorStop(0.4, "#282829");
@@ -53,9 +53,9 @@ class MeAndYouGaming {
 }
 
 
-class gamingText {
+class gameText {
 	constructor() {
-		this.textArr = skateText;
+		this.textArr = gamingText;
 		this.currentText = 0;
 
 		this.currentInterval = 0;
@@ -114,7 +114,7 @@ Scenes.game = function(currentIteration) {
 
 	return new Promise(function (resolve, reject) {
 		const us = new MeAndYouGaming;
-		const text = new gamingText;
+		const text = new gameText;
 
 		var intervalId1 = setInterval(function() {
 			us.draw();
